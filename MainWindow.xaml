@@ -9,6 +9,7 @@
         </Grid.RowDefinitions>
 
         <Canvas x:Name="MainCanvas" Grid.Row="0"
+                PreviewMouseWheel="MainCanvas_PreviewMouseWheel"
                 Background="LightGray"
                 MouseLeftButtonDown="Canvas_MouseLeftButtonDown"
                 MouseLeftButtonUp="Canvas_MouseLeftButtonUp"

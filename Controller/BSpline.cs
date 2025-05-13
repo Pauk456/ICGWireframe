@@ -6,9 +6,7 @@ namespace ICGWireframe.Controller
 {
     public class BSpline
     {
-        public int CountApproachingLines { get; set; } = 10;
-
-        public IEnumerable<Point> GetBSpline(IEnumerable<Point> controlPoints)
+        public IEnumerable<Point> GetBSpline(IEnumerable<Point> controlPoints, int CountApproachingLines)
         {
             var points = controlPoints as List<Point> ?? new List<Point>(controlPoints);
             if (points.Count < 4)

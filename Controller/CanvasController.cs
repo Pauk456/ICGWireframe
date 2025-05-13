@@ -1,136 +1,82 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Shapes;
-using ICGWireframe.Model;
 
-namespace ICGWireframe.Controller
+namespace ICGWireframe.Controller;
+public class CanvasController
 {
-    public class CanvasController
+    private readonly DotManager _dotManager;
+    private readonly SplineRenderer _splineRenderer;
+    private readonly ConnectingLineRenderer _connectingLineRenderer;
+    private readonly CoordinateSystemDrawer _coordinateSystem;
+    private readonly ZoomHandler _zoomHandler;
+    private readonly DragHandler _dragHandler;
+
+    public CanvasController(Canvas canvas)
     {
-        private readonly Canvas _canvas;
-        private readonly List<DotModel> _dots = new();
-        private readonly BSpline _spline = new();
+        _coordinateSystem = new CoordinateSystemDrawer(canvas);
+        _dotManager = new DotManager(canvas);
+        _splineRenderer = new SplineRenderer(canvas);
+        _connectingLineRenderer = new ConnectingLineRenderer(canvas);
 
-        private readonly Polyline _splineLine;
-        private readonly Polyline _connectingLine; 
+        _zoomHandler = new ZoomHandler(
+            _coordinateSystem,
+            _connectingLineRenderer,
+            _splineRenderer,
+            _dotManager);
 
-        private DotModel _draggedDot;
+        _dragHandler = new DragHandler(canvas, UpdateSpline, UpdateConnectingLine);
+    }
 
-        public CanvasController(Canvas canvas)
+    public void SetSplineSegments(int count)
+    {
+        _splineRenderer.CountApproachingLines = count;
+        UpdateSpline();
+    }
+
+    public void AddOrRemoveDot(Point position)
+    {
+        var hitDot = _dotManager.GetDotAt(position);
+        if (hitDot != null)
         {
-            _canvas = canvas ?? throw new ArgumentNullException(nameof(canvas));
-
-            _splineLine = new Polyline
-            {
-                Stroke = Brushes.Red,
-                StrokeThickness = 2
-            };
-
-            _connectingLine = new Polyline
-            {
-                Stroke = Brushes.Gray,
-                StrokeThickness = 1,
-                StrokeDashArray = new DoubleCollection { 5, 3 }
-            };
-
-            _canvas.Children.Add(_splineLine);
-            _canvas.Children.Add(_connectingLine);
-
-            UpdateConnectingLine();
+            _dotManager.RemoveDot(hitDot);
+        }
+        else
+        {
+            _dotManager.AddDot(position);
         }
 
-        public void StartDragging(Point position)
-        {
-            _draggedDot = GetDotAt(position);
-        }
+        UpdateConnectingLine();
+        UpdateSpline();
+    }
 
-        public void UpdateDotPosition(Point position)
-        {
-            if (_draggedDot != null)
-            {
-                _draggedDot.UpdatePosition(position.X, position.Y);
-                UpdateConnectingLine();
-            }
-        }
+    public void StartDragging(Point position)
+    {
+        _dragHandler.StartDragging(position);
+    }
 
-        public void StopDragging()
-        {
-            _draggedDot = null;
-        }
+    public void UpdateDotPosition(Point position)
+    {
+        _dragHandler.UpdateDotPosition(position);
+    }
 
-        public void SetSplineSegments(int count)
-        {
-            _spline.CountApproachingLines = count;
-            UpdateSpline();
-        }
+    public void StopDragging()
+    {
+        _dragHandler.StopDragging();
+    }
 
-        public void AddOrRemoveDot(Point position)
-        {
-            var hitDot = GetDotAt(position);
+    public void OnMouseWheel(Point mousePosition, int delta, ModifierKeys modifiers)
+    {
+        _zoomHandler.HandleMouseWheel(mousePosition, delta, modifiers);
+    }
 
-            if (hitDot != null)
-            {
-                RemoveDot(hitDot);
-            }
-            else
-            {
-                AddDot(position);
-            }
+    private void UpdateConnectingLine()
+    {
+        _connectingLineRenderer.Update(_dotManager.Dots.Select(d => d.Position));
+    }
 
-            UpdateConnectingLine();
-            UpdateSpline();
-        }
-
-        private DotModel GetDotAt(Point position)
-        {
-            foreach (var dot in _dots)
-            {
-                double dx = dot.Position.X - position.X;
-                double dy = dot.Position.Y - position.Y;
-
-                if (dx * dx + dy * dy < 100)
-                {
-                    return dot;
-                }
-            }
-
-            return null;
-        }
-
-        private void AddDot(Point position)
-        {
-            var dot = new DotModel(position.X, position.Y);
-            _dots.Add(dot);
-            _canvas.Children.Add(dot.Ellipse);
-        }
-
-        private void RemoveDot(DotModel dot)
-        {
-            _canvas.Children.Remove(dot.Ellipse);
-            _dots.Remove(dot);
-        }
-
-        public void UpdateSpline()
-        {
-            _splineLine.Points.Clear();
-
-            foreach (var point in _spline.GetBSpline(_dots.Select(d => d.Position)))
-            {
-                _splineLine.Points.Add(point);
-            }
-        }
-        public void UpdateConnectingLine()
-        {
-            _connectingLine.Points.Clear();
-
-            foreach (var dot in _dots)
-            {
-                _connectingLine.Points.Add(dot.Position);
-            }
-        }
+    public void UpdateSpline()
+    {
+        _splineRenderer.Update(_dotManager.Dots.Select(d => d.Position));
     }
 }

@@ -78,5 +78,16 @@ namespace ICGWireframe
                 _controller.UpdateSpline();
             }
         }
+
+        private void MainCanvas_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            var canvas = sender as Canvas;
+            var position = e.GetPosition(canvas);
+
+            // Получаем текущие модификаторы (например, Ctrl)
+            var modifiers = Keyboard.Modifiers;
+
+            _controller.OnMouseWheel(position, e.Delta, modifiers);
+        }
     }
 }
