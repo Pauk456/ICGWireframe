@@ -57,7 +57,6 @@ public class DPanel : UserControl
 
             DrawLine(context, transformedPoints);
         }
-        DrawAxesGizmo(context, transformMatrix);
     }
 
     private void OnPointerWheelChanged(object? sender, PointerWheelEventArgs e)
@@ -250,71 +249,4 @@ public class DPanel : UserControl
 
         return figure;
     }
-    
-    void DrawAxesGizmo(DrawingContext context, Matrix4x4 matrix)
-    {
-        var origin = new Point3D { X = 0, Y = 0, Z = 0 };
-        var axisX = new Point3D { X = 1, Y = 0, Z = 0 };
-        var axisY = new Point3D { X = 0, Y = 1, Z = 0 };
-        var axisZ = new Point3D { X = 0, Y = 0, Z = 1 };
-
-        // Применим текущую матрицу поворота
-        var rotOrigin = TransformPoint(origin, matrix);
-        var rotX = TransformPoint(axisX, matrix);
-        var rotY = TransformPoint(axisY, matrix);
-        var rotZ = TransformPoint(axisZ, matrix);
-
-        var centerX = Bounds.Width / 3;
-        var centerY = Bounds.Height / 3;
-
-        // Спроецируем в 2D (на маленькой области, скажем, 80x80 в левом верхнем углу)
-        Point Project(Point p) => new Point(p.X + centerX, p.Y - centerY); // масштаб + смещение
-
-        var pOrigin = Project(rotOrigin);
-        var pX = Project(rotX);
-        var pY = Project(rotY);
-        var pZ = Project(rotZ);
-
-        // Рисуем стрелки
-        var penX = new Pen(Brushes.Red, 2);
-        var penY = new Pen(Brushes.Green, 2);
-        var penZ = new Pen(Brushes.Blue, 2);
-
-        context.DrawLine(penX, pOrigin, pX);
-        context.DrawLine(penY, pOrigin, pY);
-        context.DrawLine(penZ, pOrigin, pZ);
-
-        // Можно добавить подписи "X", "Y", "Z"
-        var textBrush = Brushes.Black;
-        var textX = new FormattedText(
-            "X",
-            System.Globalization.CultureInfo.InvariantCulture,
-            FlowDirection.LeftToRight,
-            new Typeface("Arial"),
-            12,
-            Brushes.Red
-        );
-        context.DrawText(textX, pX + new Avalonia.Vector(4, -4));
-
-        var textY = new FormattedText(
-            "Y",
-            System.Globalization.CultureInfo.InvariantCulture,
-            FlowDirection.LeftToRight,
-            new Typeface("Arial"),
-            12,
-            Brushes.Green
-        );
-        context.DrawText(textY, pY + new Avalonia.Vector(4, -4));
-
-        var textZ = new FormattedText(
-            "Z",
-            System.Globalization.CultureInfo.InvariantCulture,
-            FlowDirection.LeftToRight,
-            new Typeface("Arial"),
-            12,
-            Brushes.Blue
-        );
-        context.DrawText(textZ, pZ + new Avalonia.Vector(4, -4));
-    }
-    
 }

@@ -3,65 +3,76 @@
         xmlns:vm="using:ICGFrame.Presentation.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="600"
         x:Class="ICGFrame.Presentation.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        Title="ICGFrame">
+        Title="ICGFrame — Modern Edition">
 
-    <Design.DataContext>
-        <vm:MainWindowViewModel/>
-    </Design.DataContext>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        
-        <DockPanel Grid.Row="0">
-            <Menu DockPanel.Dock="Top">
-                <MenuItem Header="File">
-                    <MenuItem Header="Save" Command="{Binding SaveFileCommand}"/>
-                    <MenuItem Header="Load" Command="{Binding LoadFileCommand}"/>
-                </MenuItem>
-                <MenuItem Header="About" Command="{Binding AboutCommand}"/>
-            </Menu>
-        </DockPanel>
+	<Design.DataContext>
+		<vm:MainWindowViewModel/>
+	</Design.DataContext>
 
-        <Grid Grid.Row="1" Margin="5">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+	<!-- Градиентный фон -->
+	<Window.Background>
+		<LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+			<GradientStop Color="#e0f7fa" Offset="0"/>
+			<GradientStop Color="#ffffff" Offset="1"/>
+		</LinearGradientBrush>
+	</Window.Background>
 
-            <Button Content="Change" Command="{Binding ChangeCommand}" Grid.Column="0" Margin="5,0"/>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<!-- Меню -->
+			<RowDefinition Height="*"/>
+			<!-- Основная область -->
+			<RowDefinition Height="Auto"/>
+			<!-- Нижняя панель -->
+		</Grid.RowDefinitions>
 
-            <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="10,0">
-                <TextBlock Text="K:" FontWeight="Bold"/>
-                <TextBlock Text="{Binding Params.K}" Margin="5,0,0,0"/>
-            </StackPanel>
+		<!-- Меню -->
+		<DockPanel Grid.Row="0" Margin="0">
+			<Menu DockPanel.Dock="Top" Background="Gray" FontSize="14">
+				<MenuItem Header="File">
+					<MenuItem Header="Save" Command="{Binding SaveFileCommand}"/>
+					<MenuItem Header="Load" Command="{Binding LoadFileCommand}"/>
+				</MenuItem>
+				<MenuItem Header="About" Command="{Binding AboutCommand}"/>
+			</Menu>
+		</DockPanel>
 
-            <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="10,0">
-                <TextBlock Text="N:" FontWeight="Bold"/>
-                <TextBlock Text="{Binding Params.N}" Margin="5,0,0,0"/>
-            </StackPanel>
+		<!-- Основная область -->
+		<Border Grid.Row="1" Margin="10" Background="#fafafa" BorderBrush="#e0e0e0">
+			<Grid x:Name="DGrid" Margin="10"/>
+		</Border>
 
-            <StackPanel Grid.Column="3" Orientation="Horizontal" Margin="10,0">
-                <TextBlock Text="M:" FontWeight="Bold"/>
-                <TextBlock Text="{Binding Params.M}" Margin="5,0,0,0"/>
-            </StackPanel>
+		<!-- Нижняя панель с параметрами И кнопкой Change -->
+		<Border Grid.Row="2"  Padding="10">
+			<StackPanel Orientation="Horizontal" Spacing="20" HorizontalAlignment="Center">
 
-            <StackPanel Grid.Column="4" Orientation="Horizontal" Margin="10,0">
-                <TextBlock Text="M1:" FontWeight="Bold"/>
-                <TextBlock Text="{Binding Params.M1}" Margin="5,0,0,0"/>
-            </StackPanel>
-        </Grid>
+				<TextBlock>
+					<Run Text="K: " FontWeight="Bold" Foreground="#37474f"/>
+					<Run Text="{Binding Params.K}" Foreground="#00796b"/>
+				</TextBlock>
 
-        <Grid x:Name="DGrid" Grid.Row="2"
-                Background="Black"/>
-    </Grid>
+				<TextBlock>
+					<Run Text="N: " FontWeight="Bold" Foreground="#37474f"/>
+					<Run Text="{Binding Params.N}" Foreground="#00796b"/>
+				</TextBlock>
+
+
+				<TextBlock>
+					<Run Text="M: " FontWeight="Bold" Foreground="#37474f"/>
+					<Run Text="{Binding Params.M}" Foreground="#00796b"/>
+				</TextBlock>
+
+				<Button Content="Change"
+                        Command="{Binding ChangeCommand}"
+                        Background="#CCCCCC"
+                        Foreground="Black"
+                        BorderBrush="#AAAAAA"
+                        Padding="10,5"/>
+			</StackPanel>
+		</Border>
+	</Grid>
 </Window>

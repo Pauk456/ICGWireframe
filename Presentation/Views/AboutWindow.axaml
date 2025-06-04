@@ -1,33 +1,15 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:ICGFrame.Presentation.ViewModels"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="450"
         x:Class="ICGFrame.Presentation.Views.AboutWindow"
         x:DataType="vm:AboutWindowViewModel"
         CanResize="False"
-        Title="О программе">
-    
-    <Design.DataContext>
-        <vm:AboutWindowViewModel/>
-    </Design.DataContext>
-    <ScrollViewer Padding="20">
-        <StackPanel Spacing="10">
-            <TextBlock Text="ICGWireframe" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center"/>
-            <TextBlock Text="Программа для визуализации тел вращения в виде проволочной модели, построенных по B-сплайнам." TextWrapping="Wrap"/>
+        Title="О программе"
+        Background="White" Width="400" Height="100">
 
-            <TextBlock Text="Основные возможности:" FontWeight="Bold" Margin="0,10,0,0"/>
-            <TextBlock Text="• Построение образующей кривой по опорным точкам с помощью B-сплайна." TextWrapping="Wrap"/>
-            <TextBlock Text="• Визуализация 3D-фигуры вращения с использованием матричных преобразований." TextWrapping="Wrap"/>
-            <TextBlock Text="• Интерактивное управление опорными точками (перемещение, добавление, удаление)." TextWrapping="Wrap"/>
-            <TextBlock Text="• Настройка параметров: K — число опорных точек, N — сегментов B-сплайна, M — число образующих, M1 — сглаживание по окружностям." TextWrapping="Wrap"/>
-            <TextBlock Text="• Отображение координатных осей и габаритного куба." TextWrapping="Wrap"/>
-            <TextBlock Text="• Вращение фигуры мышью." TextWrapping="Wrap"/>
-            <TextBlock Text="• Сохранение и загрузка текущей сцены в JSON-файлы." TextWrapping="Wrap"/>
-
-            <TextBlock Text="Автор:" FontWeight="Bold" Margin="0,10,0,0"/>
-            <TextBlock Text="Моторин Илья студент 3 курса ФИТ НГУ"/>
-        </StackPanel>
-    </ScrollViewer>
+	<ScrollViewer Padding="20">
+		<TextBlock Text="Автор: Бокк, ФИТ 3 курс"
+                   Foreground="Black"
+                   FontSize="14"/>
+	</ScrollViewer>
 </Window>
