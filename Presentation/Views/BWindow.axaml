@@ -1,0 +1,88 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:ICGFrame.Presentation.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ICGFrame.Presentation.Converters"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="ICGFrame.Presentation.Views.BWindow"
+        x:DataType="vm:BWindowViewModel"
+        Title="ICGFrame">
+
+    <Design.DataContext>
+        <vm:BWindowViewModel/>
+    </Design.DataContext>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5">
+            <!-- K Parameter -->
+            <StackPanel Orientation="Horizontal" Margin="5,0">
+                <NumericUpDown Minimum="1" Maximum="1000" 
+                             Value="{Binding Params.K, Mode=TwoWay}" 
+                             ShowButtonSpinner="True"
+                             Width="60"
+                             VerticalAlignment="Center"/>
+                <TextBlock Text="K" VerticalAlignment="Center" Margin="5,0"/>
+                <TextBlock Text="{Binding Params.K}" 
+                         VerticalAlignment="Center" 
+                         Margin="5,0"
+                         Foreground="Blue"/>
+            </StackPanel>
+
+            <!-- N Parameter -->
+            <StackPanel Orientation="Horizontal" Margin="5,0">
+                <NumericUpDown Minimum="1" Maximum="1000" 
+                             Value="{Binding Params.N, Mode=TwoWay}" 
+                             ShowButtonSpinner="True"
+                             Width="60"
+                             VerticalAlignment="Center"/>
+                <TextBlock Text="N" VerticalAlignment="Center" Margin="5,0"/>
+                <TextBlock Text="{Binding Params.N}" 
+                         VerticalAlignment="Center" 
+                         Margin="5,0"
+                         Foreground="Blue"/>
+            </StackPanel>
+
+            <!-- M Parameter -->
+            <StackPanel Orientation="Horizontal" Margin="5,0">
+                <NumericUpDown Minimum="1" Maximum="1000" 
+                             Value="{Binding Params.M, Mode=TwoWay}" 
+                             ShowButtonSpinner="True"
+                             Width="60"
+                             VerticalAlignment="Center"/>
+                <TextBlock Text="M" VerticalAlignment="Center" Margin="5,0"/>
+                <TextBlock Text="{Binding Params.M}" 
+                         VerticalAlignment="Center" 
+                         Margin="5,0"
+                         Foreground="Blue"/>
+            </StackPanel>
+
+            <!-- M1 Parameter -->
+            <StackPanel Orientation="Horizontal" Margin="5,0">
+                <NumericUpDown Minimum="1" Maximum="1000" 
+                             Value="{Binding Params.M1, Mode=TwoWay}" 
+                             ShowButtonSpinner="True"
+                             Width="60"
+                             VerticalAlignment="Center"/>
+                <TextBlock Text="M1" VerticalAlignment="Center" Margin="5,0"/>
+                <TextBlock Text="{Binding Params.M1}" 
+                         VerticalAlignment="Center" 
+                         Margin="5,0"
+                         Foreground="Blue"/>
+            </StackPanel>
+
+            <!-- Apply Button -->
+            <Button Content="Apply" Margin="10,0" Width="80" Command="{Binding ApplyCommand}">
+                <!-- Ваша реализация кнопки -->
+            </Button>
+        </StackPanel>
+
+        <Grid x:Name="BGrid" Grid.Row="1"
+              Background="Black"/>
+    </Grid>
+</Window>

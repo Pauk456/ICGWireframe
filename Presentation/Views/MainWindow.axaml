@@ -1,0 +1,67 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:ICGFrame.Presentation.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="ICGFrame.Presentation.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="ICGFrame">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <DockPanel Grid.Row="0">
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="File">
+                    <MenuItem Header="Save" Command="{Binding SaveFileCommand}"/>
+                    <MenuItem Header="Load" Command="{Binding LoadFileCommand}"/>
+                </MenuItem>
+                <MenuItem Header="About" Command="{Binding AboutCommand}"/>
+            </Menu>
+        </DockPanel>
+
+        <Grid Grid.Row="1" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Content="Change" Command="{Binding ChangeCommand}" Grid.Column="0" Margin="5,0"/>
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="10,0">
+                <TextBlock Text="K:" FontWeight="Bold"/>
+                <TextBlock Text="{Binding Params.K}" Margin="5,0,0,0"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="10,0">
+                <TextBlock Text="N:" FontWeight="Bold"/>
+                <TextBlock Text="{Binding Params.N}" Margin="5,0,0,0"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="3" Orientation="Horizontal" Margin="10,0">
+                <TextBlock Text="M:" FontWeight="Bold"/>
+                <TextBlock Text="{Binding Params.M}" Margin="5,0,0,0"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="4" Orientation="Horizontal" Margin="10,0">
+                <TextBlock Text="M1:" FontWeight="Bold"/>
+                <TextBlock Text="{Binding Params.M1}" Margin="5,0,0,0"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid x:Name="DGrid" Grid.Row="2"
+                Background="Black"/>
+    </Grid>
+</Window>
