@@ -35,13 +35,17 @@ public class ParamContainer : ReactiveObject
         }
     }
 
-    private int _m = 2;
+    private int _m = 5;
 
     public int M
     {
         get => _m;
         set
         {
+            if (value >= 10)
+            {
+                return;
+            }
             if (value >= 2)
             {
                 this.RaiseAndSetIfChanged(ref _m, value);
@@ -55,10 +59,15 @@ public class ParamContainer : ReactiveObject
         get => _n;
         set
         {
+            if (value >= 10)
+            {
+                return;
+            }
             if (value >= 1)
             {
                 this.RaiseAndSetIfChanged(ref _n, value);
             }
+
         }
     }
 
@@ -80,10 +89,11 @@ public class ParamContainer : ReactiveObject
         FPoints = new();
         _points = new()
         {
-                new Point(10, 20),
-                new Point(20, 20),
-                new Point(30, 20),
-                new Point(40, 20)
+                 new Point(100, 200),
+                new Point(200, 150),
+                new Point(300, 200),
+                new Point(400, 150),  
+                new Point(500, 200)
         };
     }
 

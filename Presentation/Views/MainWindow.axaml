@@ -33,10 +33,6 @@
 		<!-- Меню -->
 		<DockPanel Grid.Row="0" Margin="0">
 			<Menu DockPanel.Dock="Top" Background="Gray" FontSize="14">
-				<MenuItem Header="File">
-					<MenuItem Header="Save" Command="{Binding SaveFileCommand}"/>
-					<MenuItem Header="Load" Command="{Binding LoadFileCommand}"/>
-				</MenuItem>
 				<MenuItem Header="About" Command="{Binding AboutCommand}"/>
 			</Menu>
 		</DockPanel>
@@ -47,7 +43,7 @@
 		</Border>
 
 		<!-- Нижняя панель с параметрами И кнопкой Change -->
-		<Border Grid.Row="2"  Padding="10">
+		<Border Grid.Row="2" Background="Gray"  Padding="10">
 			<StackPanel Orientation="Horizontal" Spacing="20" HorizontalAlignment="Center">
 
 				<TextBlock>

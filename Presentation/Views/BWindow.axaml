@@ -14,19 +14,14 @@
     </Design.DataContext>
     
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="14*" />
+			<RowDefinition Height="1*" />
+		</Grid.RowDefinitions>
+		<Border Grid.Row="1" Background="Gray">
+		    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
             <!-- K Parameter -->
-            <StackPanel Orientation="Horizontal" Margin="5,0">
-                <NumericUpDown Minimum="1" Maximum="1000" 
-                             Value="{Binding Params.K, Mode=TwoWay}" 
-                             ShowButtonSpinner="True"
-                             Width="60"
-                             VerticalAlignment="Center"/>
+            <StackPanel Orientation="Horizontal" Margin="10,0">
                 <TextBlock Text="K" VerticalAlignment="Center" Margin="5,0"/>
                 <TextBlock Text="{Binding Params.K}" 
                          VerticalAlignment="Center" 
@@ -35,7 +30,7 @@
             </StackPanel>
 
             <!-- N Parameter -->
-            <StackPanel Orientation="Horizontal" Margin="5,0">
+            <StackPanel Orientation="Horizontal" Margin="10,0">
                 <NumericUpDown Minimum="1" Maximum="1000" 
                              Value="{Binding Params.N, Mode=TwoWay}" 
                              ShowButtonSpinner="True"
@@ -49,7 +44,7 @@
             </StackPanel>
 
             <!-- M Parameter -->
-            <StackPanel Orientation="Horizontal" Margin="5,0">
+            <StackPanel Orientation="Horizontal" Margin="10,0">
                 <NumericUpDown Minimum="1" Maximum="1000" 
                              Value="{Binding Params.M, Mode=TwoWay}" 
                              ShowButtonSpinner="True"
@@ -62,27 +57,13 @@
                          Foreground="Blue"/>
             </StackPanel>
 
-            <!-- M1 Parameter -->
-            <StackPanel Orientation="Horizontal" Margin="5,0">
-                <NumericUpDown Minimum="1" Maximum="1000" 
-                             Value="{Binding Params.M1, Mode=TwoWay}" 
-                             ShowButtonSpinner="True"
-                             Width="60"
-                             VerticalAlignment="Center"/>
-                <TextBlock Text="M1" VerticalAlignment="Center" Margin="5,0"/>
-                <TextBlock Text="{Binding Params.M1}" 
-                         VerticalAlignment="Center" 
-                         Margin="5,0"
-                         Foreground="Blue"/>
-            </StackPanel>
-
             <!-- Apply Button -->
-            <Button Content="Apply" Margin="10,0" Width="80" Command="{Binding ApplyCommand}">
+            <Button Content="Apply" Margin="15,0" Width="80" Command="{Binding ApplyCommand}">
                 <!-- Ваша реализация кнопки -->
             </Button>
         </StackPanel>
-
-        <Grid x:Name="BGrid" Grid.Row="1"
-              Background="Black"/>
+		</Border>
+        <Grid x:Name="BGrid" Grid.Row="0"
+              Background="White"/>
     </Grid>
 </Window>

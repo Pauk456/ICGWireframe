@@ -68,10 +68,10 @@ public class BPanel : UserControl
             e.Handled = true;
             _lastPanPosition = null;
         }
-        else if (e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
-        {
-            _lastPanPosition = ScreenToLogicalPoint(e.GetPosition(this));
-        }
+        //else if (e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
+        //{
+        //    _lastPanPosition = ScreenToLogicalPoint(e.GetPosition(this));
+        //}
     }
 
     private void OnPointerMoved(object? sender, PointerEventArgs e)
@@ -117,21 +117,19 @@ public class BPanel : UserControl
 
     public override void Render(DrawingContext context)
     {
-        // var scaleMatrix = Matrix.CreateScale(_scale, _scale);
-        var translateMatrix = Matrix.CreateTranslation(_offset.X, -_offset.Y);
-
+        var translateMatrix = Matrix.CreateTranslation(_offset);
         context.PushTransform(translateMatrix);
-        // context.PushTransform(scaleMatrix);
-
 
         base.Render(context);
 
-        context.FillRectangle(Brushes.Black, Bounds);
+        // Фон
+        context.FillRectangle(Brushes.White, Bounds);
 
         if (Points == null || Points.Count == 0) return;
 
         var diameter = Radius * 2;
         var newPoints = LogicalToScreenPoints(Points);
+
         foreach (var point in newPoints)
         {
             var rect = new Rect(
@@ -140,7 +138,7 @@ public class BPanel : UserControl
                 diameter,
                 diameter);
 
-            context.DrawEllipse(Brushes.Blue, null, rect.Center, Radius, Radius);
+            context.DrawEllipse(Brushes.Black, null, rect.Center, Radius, Radius);
         }
 
         if (newPoints != null && newPoints.Count >= 4)
@@ -157,8 +155,8 @@ public class BPanel : UserControl
                 }
             }
             context.DrawGeometry(
-                Brushes.Blue,
-                new Pen(Brushes.Blue, SplineThickness),
+                Brushes.Black,
+                new Pen(Brushes.Black, SplineThickness),
                 geometry);
 
             geometry = new StreamGeometry();
@@ -171,12 +169,13 @@ public class BPanel : UserControl
                 }
             }
             context.DrawGeometry(
-                Brushes.Yellow,
-                new Pen(Brushes.Yellow, SplineThickness),
+                Brushes.Gray,
+                new Pen(Brushes.Gray, SplineThickness),
                 geometry);
-
         }
-        var axisPen = new Pen(Brushes.Gray, 1);
+
+        // Оси координат — делаем их серыми
+        var axisPen = new Pen(Brushes.LightGray, 1);
         context.DrawLine(axisPen, new Point(-10000, Bounds.Height / 2), new Point(10000, Bounds.Height / 2));
         context.DrawLine(axisPen, new Point(Bounds.Width / 2, -10000), new Point(Bounds.Width / 2, 10000));
     }
