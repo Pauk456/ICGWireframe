@@ -122,7 +122,6 @@ public class BPanel : UserControl
 
         base.Render(context);
 
-        // Фон
         context.FillRectangle(Brushes.White, Bounds);
 
         if (Points == null || Points.Count == 0) return;
@@ -174,7 +173,6 @@ public class BPanel : UserControl
                 geometry);
         }
 
-        // Оси координат — делаем их серыми
         var axisPen = new Pen(Brushes.LightGray, 1);
         context.DrawLine(axisPen, new Point(-10000, Bounds.Height / 2), new Point(10000, Bounds.Height / 2));
         context.DrawLine(axisPen, new Point(Bounds.Width / 2, -10000), new Point(Bounds.Width / 2, 10000));
@@ -189,28 +187,6 @@ public class BPanel : UserControl
             Points.Add(position);
         }
     }
-
-    // private void OnPointerWheelChanged(object? sender, PointerWheelEventArgs e)
-    // {
-    //     var mousePos = e.GetPosition(this);
-
-    //     // Получаем мировую координату до масштабирования
-    //     var worldBeforeZoom = ScreenToLogicalPoint(mousePos);
-
-    //     // Обновляем масштаб
-    //     var zoomFactor = e.Delta.Y > 0 ? 1.1 : 0.9;
-    //     _scale *= zoomFactor;
-
-    //     // После масштабирования — вычисляем новую мировую позицию под тем же экраном
-    //     var worldAfterZoom = ScreenToLogicalPoint(mousePos);
-
-    //     // Смещение сцены так, чтобы точка под мышью осталась на месте
-    //     var delta = worldAfterZoom - worldBeforeZoom;
-    //     _offset -= new Vector(delta.X, delta.Y);
-
-    //     InvalidateVisual();
-    //     e.Handled = true;
-    // }
     public List<Point> LogicalToScreenPoints(List<Point> points)
     {
         var newPoints = new List<Point>();

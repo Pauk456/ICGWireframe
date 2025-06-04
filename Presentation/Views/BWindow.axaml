@@ -2,68 +2,76 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:ICGFrame.Presentation.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		 xmlns:local="clr-namespace:ICGFrame.Presentation"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ICGFrame.Presentation.Converters"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d"
+        d:DesignWidth="800"
+        d:DesignHeight="450"
         x:Class="ICGFrame.Presentation.Views.BWindow"
         x:DataType="vm:BWindowViewModel"
         Title="ICGFrame">
 
-    <Design.DataContext>
-        <vm:BWindowViewModel/>
-    </Design.DataContext>
-    
-    <Grid>
+	<Window.Resources>
+		<local:StringToIntConverter x:Key="StringToIntConverter" />
+	</Window.Resources>
+
+	<Design.DataContext>
+		<vm:BWindowViewModel/>
+	</Design.DataContext>
+
+
+	<Grid>
 		<Grid.RowDefinitions>
-			<RowDefinition Height="14*" />
+			<RowDefinition Height="0*" />
 			<RowDefinition Height="1*" />
 		</Grid.RowDefinitions>
+
+		<!-- Основная область -->
+		<Grid x:Name="BGrid" Grid.Row="0" Background="White"/>
+
+		<!-- Нижняя панель с белым фоном -->
 		<Border Grid.Row="1" Background="Gray">
-		    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
-            <!-- K Parameter -->
-            <StackPanel Orientation="Horizontal" Margin="10,0">
-                <TextBlock Text="K" VerticalAlignment="Center" Margin="5,0"/>
-                <TextBlock Text="{Binding Params.K}" 
-                         VerticalAlignment="Center" 
-                         Margin="5,0"
-                         Foreground="Blue"/>
-            </StackPanel>
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
 
-            <!-- N Parameter -->
-            <StackPanel Orientation="Horizontal" Margin="10,0">
-                <NumericUpDown Minimum="1" Maximum="1000" 
-                             Value="{Binding Params.N, Mode=TwoWay}" 
-                             ShowButtonSpinner="True"
-                             Width="60"
-                             VerticalAlignment="Center"/>
-                <TextBlock Text="N" VerticalAlignment="Center" Margin="5,0"/>
-                <TextBlock Text="{Binding Params.N}" 
-                         VerticalAlignment="Center" 
-                         Margin="5,0"
-                         Foreground="Blue"/>
-            </StackPanel>
+				<!-- K Parameter -->
+				<StackPanel Orientation="Horizontal" Margin="10,0">
+					<TextBlock Text="K:" VerticalAlignment="Center" Margin="5,0"/>
+					<TextBlock Text="{Binding Params.K}"
+							   VerticalAlignment="Center"
+							   Margin="5,0"/>
+				</StackPanel>
 
-            <!-- M Parameter -->
-            <StackPanel Orientation="Horizontal" Margin="10,0">
-                <NumericUpDown Minimum="1" Maximum="1000" 
-                             Value="{Binding Params.M, Mode=TwoWay}" 
-                             ShowButtonSpinner="True"
-                             Width="60"
-                             VerticalAlignment="Center"/>
-                <TextBlock Text="M" VerticalAlignment="Center" Margin="5,0"/>
-                <TextBlock Text="{Binding Params.M}" 
-                         VerticalAlignment="Center" 
-                         Margin="5,0"
-                         Foreground="Blue"/>
-            </StackPanel>
+				<!-- N Parameter -->
+				<StackPanel Orientation="Horizontal" Margin="10,0">
+					<TextBlock Text="N" VerticalAlignment="Center" Margin="5,0"/>
+					<TextBox x:Name="NTextBox"
+							 Text="{Binding Params.N, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource StringToIntConverter}}"
+							 Width="50"
+							 HorizontalAlignment="Center"
+							 VerticalAlignment="Center"
+							 MaxLength="2"
+							 HorizontalContentAlignment="Center"/>
+				</StackPanel>
 
-            <!-- Apply Button -->
-            <Button Content="Apply" Margin="15,0" Width="80" Command="{Binding ApplyCommand}">
-                <!-- Ваша реализация кнопки -->
-            </Button>
-        </StackPanel>
+				<!-- M Parameter -->
+				<StackPanel Orientation="Horizontal" Margin="10,0">
+					<TextBlock Text="M" VerticalAlignment="Center" Margin="5,0"/>
+					<TextBox x:Name="MTextBox"
+							 Text="{Binding Params.M, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource StringToIntConverter}}"
+							 Width="50"
+							 HorizontalAlignment="Center"
+							 VerticalAlignment="Center"
+							 MaxLength="2"
+							 HorizontalContentAlignment="Center"/>
+				</StackPanel>
+
+				<!-- Apply Button -->
+				<Button Content="Apply"
+                        Width="80"
+                        Margin="15,0"
+                        Command="{Binding ApplyCommand}"
+                        VerticalAlignment="Center"/>
+			</StackPanel>
 		</Border>
-        <Grid x:Name="BGrid" Grid.Row="0"
-              Background="White"/>
-    </Grid>
+	</Grid>
 </Window>
