@@ -2,7 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:ICGFrame.Presentation.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-		 xmlns:local="clr-namespace:ICGFrame.Presentation"
+     xmlns:local="clr-namespace:ICGFrame.Presentation"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         d:DesignWidth="800"
@@ -22,7 +22,7 @@
 
 	<Grid>
 		<Grid.RowDefinitions>
-			<RowDefinition Height="0*" />
+			<RowDefinition Height="14*" />
 			<RowDefinition Height="1*" />
 		</Grid.RowDefinitions>
 
@@ -37,40 +37,40 @@
 				<StackPanel Orientation="Horizontal" Margin="10,0">
 					<TextBlock Text="K:" VerticalAlignment="Center" Margin="5,0"/>
 					<TextBlock Text="{Binding Params.K}"
-							   VerticalAlignment="Center"
-							   Margin="5,0"/>
+						   VerticalAlignment="Center"
+						   Margin="5,0"/>
 				</StackPanel>
 
 				<!-- N Parameter -->
 				<StackPanel Orientation="Horizontal" Margin="10,0">
 					<TextBlock Text="N" VerticalAlignment="Center" Margin="5,0"/>
 					<TextBox x:Name="NTextBox"
-							 Text="{Binding Params.N, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource StringToIntConverter}}"
-							 Width="50"
-							 HorizontalAlignment="Center"
-							 VerticalAlignment="Center"
-							 MaxLength="2"
-							 HorizontalContentAlignment="Center"/>
+						 Text="{Binding N, Mode=TwoWay}"
+						 Width="50"
+						 HorizontalAlignment="Center"
+						 VerticalAlignment="Center"
+						 MaxLength="2"
+						 HorizontalContentAlignment="Center"/>
 				</StackPanel>
 
 				<!-- M Parameter -->
 				<StackPanel Orientation="Horizontal" Margin="10,0">
 					<TextBlock Text="M" VerticalAlignment="Center" Margin="5,0"/>
 					<TextBox x:Name="MTextBox"
-							 Text="{Binding Params.M, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource StringToIntConverter}}"
-							 Width="50"
-							 HorizontalAlignment="Center"
-							 VerticalAlignment="Center"
-							 MaxLength="2"
-							 HorizontalContentAlignment="Center"/>
+						 Text="{Binding M, Mode=TwoWay}"
+						 Width="50"
+						 HorizontalAlignment="Center"
+						 VerticalAlignment="Center"
+						 MaxLength="2"
+						 HorizontalContentAlignment="Center"/>
 				</StackPanel>
 
 				<!-- Apply Button -->
 				<Button Content="Apply"
-                        Width="80"
-                        Margin="15,0"
-                        Command="{Binding ApplyCommand}"
-                        VerticalAlignment="Center"/>
+								Width="80"
+								Margin="15,0"
+								Command="{Binding ApplyCommand}"
+								VerticalAlignment="Center"/>
 			</StackPanel>
 		</Border>
 	</Grid>

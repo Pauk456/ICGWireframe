@@ -27,9 +27,10 @@ public partial class BWindow : ReactiveWindow<BWindowViewModel>
                 action(ViewModel!.ApplyInteraction.RegisterHandler(ApplyParams)));
     }
 
-    private void ApplyParams(IInteractionContext<Unit, Unit> context)
+    private void ApplyParams(IInteractionContext<(string, string), Unit> context)
     {
-        _bPanel.Validate();
+        (var a, var b) = context.Input;
+        _bPanel.Validate(int.Parse(a), int.Parse(b));
         _bPanel.InvalidateVisual();
         context.SetOutput(Unit.Default);
     }

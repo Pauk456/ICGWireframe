@@ -42,14 +42,6 @@ public class ParamContainer : ReactiveObject
         get => _m;
         set
         {
-            if (value >= 10)
-            {
-                this.RaiseAndSetIfChanged(ref _m, 10);
-            }
-            if (value <= 0)
-            {
-                this.RaiseAndSetIfChanged(ref _m, 1);
-            }
             if (value >= 2)
             {
                 this.RaiseAndSetIfChanged(ref _m, value);
@@ -63,14 +55,6 @@ public class ParamContainer : ReactiveObject
         get => _n;
         set
         {
-            if (value >= 10)
-            {
-                this.RaiseAndSetIfChanged(ref _m, 10);
-            }
-            if (value <= 0)
-            {
-                this.RaiseAndSetIfChanged(ref _m, 1);
-            }
             if (value >= 1)
             {
                 this.RaiseAndSetIfChanged(ref _n, value);

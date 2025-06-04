@@ -129,6 +129,7 @@ public class BPanel : UserControl
         var diameter = Radius * 2;
         var newPoints = LogicalToScreenPoints(Points);
 
+
         foreach (var point in newPoints)
         {
             var rect = new Rect(
@@ -204,8 +205,10 @@ public class BPanel : UserControl
         return new Point(logicalX, logicalY);
     }
 
-    public void Validate()
+    public void Validate(int n, int m)
     {
+        _container.N = n;
+        _container.M = m;
         _container.K = _container.Points.Count;
     }
 }
